@@ -3,8 +3,6 @@ package com.yyou.tools.service;
 import com.yyou.data.HttpException;
 import com.yyou.data.HttpMessage;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
