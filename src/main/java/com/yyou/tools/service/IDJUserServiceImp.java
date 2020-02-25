@@ -5,6 +5,8 @@ import com.yyou.tools.mapper.IDJUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IDJUserServiceImp implements IDjUserService {
     @Autowired
@@ -13,4 +15,10 @@ public class IDJUserServiceImp implements IDjUserService {
     public IDJUser getUser(int id) {
         return idjUserMapper.getById(id);
     }
+
+    @Override
+    public List<IDJUser> getAll() {
+        return  idjUserMapper.getAll();
+    }
+
 }

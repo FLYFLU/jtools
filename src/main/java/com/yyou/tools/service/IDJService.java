@@ -2,6 +2,7 @@ package com.yyou.tools.service;
 
 import com.yyou.data.HttpException;
 import com.yyou.data.HttpMessage;
+import com.yyou.tools.mapper.IDJUserMapper;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -180,6 +181,11 @@ public class IDJService implements IIdjService {
             httpMessage = new HttpMessage(-2, ex);
         }
         return httpMessage;
+    }
+
+    @Override
+    public void autoLoginAll() {
+
     }
 
     private static Logger logger = LoggerFactory.getLogger(IDJService.class);
