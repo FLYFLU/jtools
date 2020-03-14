@@ -16,4 +16,10 @@ public class DbKeyService implements IDbKeyGetter {
         int effceeCount = idIncreaseMapper.insertIncrease(entity);
         return entity;
     }
+
+    @Override
+    public int insertIncreaseOptions(AutoIncreaseId entity) {
+        int effceeCount = idIncreaseMapper.insertIncreaseOptions(entity);
+        return effceeCount;
+    }
 }

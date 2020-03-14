@@ -20,10 +20,18 @@ public class DbKeyGetterTest {
     @Autowired
     private IDbKeyGetter keyGetter;
     @Test
-    public void testSnowFlakeBean(){
+    public void insertIncrease(){
         AutoIncreaseId entity = new AutoIncreaseId();
         entity.setRemark(Thread.currentThread().toString());
         keyGetter.insertIncrease(entity);
+        System.out.println(entity.toString());
+    }
+
+    @Test
+    public void insertIncreaseOptions(){
+        AutoIncreaseId entity = new AutoIncreaseId();
+        entity.setRemark(Thread.currentThread().toString());
+        keyGetter.insertIncreaseOptions(entity);
         System.out.println(entity.toString());
     }
 }
