@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class IDJUser implements Serializable {
     private String idcard;
-    private int id;
+    private long id;
     private String password;
     private String username;
     private IDjRelation user;
@@ -25,11 +25,11 @@ public class IDJUser implements Serializable {
         this.idcard = idcard;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

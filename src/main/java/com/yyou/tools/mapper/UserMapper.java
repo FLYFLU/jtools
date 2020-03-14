@@ -11,5 +11,5 @@ import java.util.UUID;
 @Repository
 public interface UserMapper {
     @Select("select id,name,password,description from user where id = #{id}")
-    User getUserById(@Param("id") String id);
+    User getUserById(@Param("id") long id);
 }

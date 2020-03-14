@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class User implements Serializable {
-    private String id;
+    private long id;
     private String name;
     private String password;
     private String description;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

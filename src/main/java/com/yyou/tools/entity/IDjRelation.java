@@ -3,31 +3,31 @@ package com.yyou.tools.entity;
 import java.io.Serializable;
 
 public class IDjRelation implements Serializable {
-    private int id;
-    private int idjId;
-    private String sysId;
+    private long id;
+    private long idjId;
+    private long sysId;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getIdjId() {
+    public long getIdjId() {
         return idjId;
     }
 
-    public void setIdjId(int idjId) {
+    public void setIdjId(long idjId) {
         this.idjId = idjId;
     }
 
-    public String getSysId() {
+    public long getSysId() {
         return sysId;
     }
 
-    public void setSysId(String sysId) {
+    public void setSysId(long sysId) {
         this.sysId = sysId;
     }
 }

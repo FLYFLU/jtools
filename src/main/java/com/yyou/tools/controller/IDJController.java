@@ -33,7 +33,7 @@ public class IDJController {
         return user;
     }
     @RequestMapping(value = "users/{id}/1",method = RequestMethod.GET)
-    public int getUser1(@PathVariable("id") Integer id){
+    public long getUser1(@PathVariable("id") Integer id){
         IDJUser user = iDjUserService.getUser(id);
         return user.getId();
     }
