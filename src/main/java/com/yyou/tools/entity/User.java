@@ -9,6 +9,15 @@ public class User implements Serializable {
     private String password;
     private String description;
 
+    public User(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public User() {
+        super();
+    }
+
     public long getId() {
         return id;
     }

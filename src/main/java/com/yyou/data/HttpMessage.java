@@ -4,7 +4,8 @@ public class HttpMessage {
 
     public static final int OKNo = 0;
 
-    public static final  HttpMessage OK = new HttpMessage(0,"");
+    public static final  HttpMessage OK = new HttpMessage(200,"");
+    public static final  HttpMessage NOT_FOUND = new HttpMessage(404,"没有找到");
 //    public static final  HttpMessage EXCEPTION = new HttpMessage(-1,"");
     private int errorno;
     private String errorMessage;
