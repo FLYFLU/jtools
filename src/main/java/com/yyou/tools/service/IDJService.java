@@ -2,6 +2,8 @@ package com.yyou.tools.service;
 
 import com.yyou.data.HttpException;
 import com.yyou.data.HttpMessage;
+import com.yyou.tools.dao.IDJUserDao;
+import com.yyou.tools.entity.IDJUser;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -12,18 +14,33 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @ConfigurationProperties(prefix = "spring.idj.login")
 @Service
 public class IDJService implements IIdjService {
 
+    @Autowired
+    private IDJUserDao idjUserDao;
+
     @Scheduled(cron = "0 15 8 ? * *")
     private void autoLogin(){
         HttpMessage message = login(this.username,this.password);
         logger.info(message.toString());
+    }
+
+    @Scheduled(cron = "0 30 8 ? * *")
+    private void autoLoginAll(){
+        List<IDJUser> userList = idjUserDao.getAll();
+        for (IDJUser user : userList){
+            HttpMessage message = login(user.getIdcard(),user.getPassword());
+            logger.info(message.toString());
+        }
     }
 
     private String loginInternal(String username, String password)
