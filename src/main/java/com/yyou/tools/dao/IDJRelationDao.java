@@ -1,4 +1,4 @@
-package com.yyou.tools.mapper;
+package com.yyou.tools.dao;
 
 import com.yyou.tools.entity.IDjRelation;
 import org.apache.ibatis.annotations.Param;
@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDJRelationMapper {
+public interface IDJRelationDao {
     @Select("select * from sysuser_idjuser where idjuser_id = #{id}")
     @Results({
              @Result(column = "id",property = "id",id = true),

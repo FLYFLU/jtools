@@ -1,10 +1,7 @@
-package com.yyou.tools.entity;
+package com.yyou.tools.dto.idj;
 
-import java.io.Serializable;
-
-public class IDJUser implements Serializable {
+public class AddIdjUserDto {
     private String idcard;
-    private long id;
     private String password;
     private String username;
 
@@ -14,14 +11,6 @@ public class IDJUser implements Serializable {
 
     public void setIdcard(String idcard) {
         this.idcard = idcard;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getPassword() {

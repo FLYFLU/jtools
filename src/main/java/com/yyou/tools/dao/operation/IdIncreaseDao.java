@@ -1,4 +1,4 @@
-package com.yyou.tools.mapper.operation;
+package com.yyou.tools.dao.operation;
 
 import com.yyou.tools.entity.operation.AutoIncreaseId;
 import com.yyou.tools.provider.operation.DbKeyBatchInsertProvider;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IdIncreaseMapper {
+public interface IdIncreaseDao {
     @Insert("insert into id_increase (remark) VALUES (#{remark})")
     @SelectKey(statement = "SELECT LAST_INSERT_ID()",keyProperty = "id",before = false,resultType = Integer.class)
     int insertIncrease(AutoIncreaseId entity);

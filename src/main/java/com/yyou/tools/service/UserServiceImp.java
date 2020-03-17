@@ -4,7 +4,7 @@ import com.yyou.data.HttpMessage;
 import com.yyou.tools.dto.user.UpdateUserDto;
 import com.yyou.tools.dto.user.UserDto;
 import com.yyou.tools.entity.User;
-import com.yyou.tools.mapper.UserMapper;
+import com.yyou.tools.dao.UserDao;
 import com.yyou.tools.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserServiceImp implements IUserService {
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Autowired
     private IdGenerator idGenerator;
     @Override
     public User getUserById(long uuid) {
-        User user = userMapper.getUserById(uuid);
+        User user = userDao.getUserById(uuid);
         return user;
     }
 
@@ -31,7 +31,7 @@ public class UserServiceImp implements IUserService {
         user.setDesc(userDto.getDescription());
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
-        int count = userMapper.addUser(user);
+        int count = userDao.addUser(user);
         return count == 1 ? HttpMessage.OK : new HttpMessage(-1, "新建失败");
     }
 
@@ -50,6 +50,6 @@ public class UserServiceImp implements IUserService {
         }
         User userUpdate = new User(userDto.getName(),userDto.getDescription());
         userUpdate.setId(id);
-        return  userMapper.updateUser(userUpdate);
+        return  userDao.updateUser(userUpdate);
     }
 }

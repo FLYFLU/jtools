@@ -1,13 +1,11 @@
-package com.yyou.tools.mapper;
+package com.yyou.tools.dao;
 
 import com.yyou.tools.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface UserMapper {
+public interface UserDao {
     @Select("select id,name,password,description from user where id = #{id}")
     User getUserById(@Param("id") long id);
 
