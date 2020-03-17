@@ -39,4 +39,14 @@ public class IDJUser implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    @Override
+    public String toString() {
+        return "IDJUser{" +
+                "idcard='" + idcard + '\'' +
+                ", id=" + id +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

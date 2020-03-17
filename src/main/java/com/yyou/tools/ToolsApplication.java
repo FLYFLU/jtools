@@ -1,6 +1,7 @@
 package com.yyou.tools;
 
 import com.yyou.tools.dao.UserDao;
+import org.mapstruct.MapperConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
