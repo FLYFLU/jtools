@@ -1,6 +1,7 @@
 package com.yyou.tools.mapper;
 
 import com.yyou.tools.dto.idj.AddIdjUserDto;
+import com.yyou.tools.dto.idj.UpdateIdjUserDto;
 import com.yyou.tools.entity.IDJUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
@@ -13,7 +14,9 @@ public interface IdjUserMapper {
 //    IdjUserMapper INSTANCE = Mappers.getMapper( IdjUserMapper.class );
 
 //    @Mapping(target = "targetProperty",source = "sourceProperty")
-//@Mapping(ignore = true)
-    IDJUser dto2Entity(AddIdjUserDto addIdjUserDto);
+    @Mapping(target = "id",ignore = true)
+    IDJUser addDto2Entity(AddIdjUserDto addIdjUserDto);
 
+    @Mapping(target = "id",ignore = true)
+    IDJUser updateDto2Entity(UpdateIdjUserDto addIdjUserDto);
 }

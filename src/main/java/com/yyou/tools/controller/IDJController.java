@@ -1,6 +1,8 @@
 package com.yyou.tools.controller;
 
 import com.yyou.data.HttpMessage;
+import com.yyou.tools.dto.idj.AddIdjUserDto;
+import com.yyou.tools.dto.idj.UpdateIdjUserDto;
 import com.yyou.tools.entity.IDJUser;
 import com.yyou.tools.service.IDjUserService;
 import com.yyou.tools.service.IIdjService;
@@ -24,14 +26,22 @@ public class IDJController {
     }
 
     @RequestMapping(value = "users/{id}",method = RequestMethod.GET)
-    public IDJUser getUser(@PathVariable("id") Integer id){
+    public IDJUser getUser(@PathVariable("id") long id){
         IDJUser user = iDjUserService.getUser(id);
 //        IDjRelation sysUser = user.getUser();
         return user;
     }
-    @RequestMapping(value = "users/{id}/1",method = RequestMethod.GET)
-    public long getUser1(@PathVariable("id") Integer id){
-        IDJUser user = iDjUserService.getUser(id);
-        return user.getId();
+
+    @PostMapping(value = "users")
+    public HttpMessage addIdjUser(@RequestBody AddIdjUserDto dto){
+        HttpMessage message = iDjUserService.addIdjUser(dto);
+        return message;
+    }
+
+    @PostMapping(value = "users/{id}")
+    public HttpMessage updateIdjUser(@PathVariable("id") long id,
+                                     @RequestBody UpdateIdjUserDto dto){
+        HttpMessage message = iDjUserService.updateIdjUser(id,dto);
+        return message;
     }
 }

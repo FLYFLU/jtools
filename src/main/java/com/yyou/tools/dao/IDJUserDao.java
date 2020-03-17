@@ -17,8 +17,24 @@ public interface IDJUserDao {
 //                one = @One(select = "com.yyou.tools.mapper.IDJRelationMapper.getByIdjUser",fetchType = FetchType.LAZY))
 //        }
 //    )
-    IDJUser getById(@Param("id") int id);
+    IDJUser getById(@Param("id") long id);
+
+    @Insert({"<script>",
+            "insert into idjuser",
+            "(id,username,password,idcard)",
+            "values",
+            "(#{id},#{username},#{password},#{idcard})",
+        "</script>"
+    })
+    int addIdjUser(IDJUser idjUser);
 
     @SelectProvider(type = IDJUserProvider.class,method = "getAll")
     List<IDJUser> getAll();
+
+    @Update({"update idjuser",
+        "set username = #{username},",
+        "password = #{password},",
+        "idcard = #{idcard}",
+        "where id = #{id}"})
+    int updateIdjUser(IDJUser idjUser);
 }
