@@ -12,7 +12,7 @@ public interface IDjUserService {
 
     List<IDJUser> getAll();
 
-    HttpMessage addIdjUser(AddIdjUserDto idjUser);
+    void addIdjUser(AddIdjUserDto idjUser);
 
-    HttpMessage updateIdjUser(long id, UpdateIdjUserDto idjUserDto);
+    void updateIdjUser(long id, UpdateIdjUserDto idjUserDto);
 }

@@ -1,10 +1,12 @@
 package com.yyou.tools.service;
 
-import com.yyou.data.HttpException;
 import com.yyou.data.HttpMessage;
 import com.yyou.tools.dao.IDJUserDao;
 import com.yyou.tools.entity.IDJUser;
+import com.yyou.tools.exception.BizException;
+import com.yyou.tools.exception.HttpRequestException;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -19,6 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @ConfigurationProperties(prefix = "spring.idj.login")
@@ -30,21 +33,26 @@ public class IDJService implements IIdjService {
 
     @Scheduled(cron = "0 15 8 ? * *")
     private void autoLogin(){
-        HttpMessage message = login(this.username,this.password);
-        logger.info(message.toString());
+        loginSafe(this.username,this.password);
+    }
+    private void loginSafe(String username,String password){
+        try{
+            login(username,password);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Scheduled(cron = "0 30 8 ? * *")
     private void autoLoginAll(){
         List<IDJUser> userList = idjUserDao.getAll();
         for (IDJUser user : userList){
-            HttpMessage message = login(user.getIdcard(),user.getPassword());
-            logger.info(message.toString());
+            loginSafe(user.getIdcard(),user.getPassword());
         }
     }
 
     private String loginInternal(String username, String password)
-            throws Exception {
+            throws HttpRequestException,IOException {
         String homeStr = getLoginInputs();
         String viewState = homeStr.split("__VIEWSTATE")[2].split("\"")[2];
         String viewStateGenerator = "37F84E62";
@@ -55,8 +63,7 @@ public class IDJService implements IIdjService {
     }
 
     private String sendLoginRequest(String content)
-            throws Exception {
-        HttpMessage message = null;
+            throws HttpRequestException,IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(IDJ_BASE_URL);
         httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
@@ -70,9 +77,11 @@ public class IDJService implements IIdjService {
                 String strResult = EntityUtils.toString(httpResponse.getEntity());
                 return strResult;
             } else {
-                throw new HttpException(httpStatusCode);
+                throw new HttpRequestException(httpStatusCode);
             }
 
+        } catch (Exception ex){
+            throw ex;
         } finally {
             if (httpResponse != null) {
                 httpResponse.close();
@@ -80,6 +89,7 @@ public class IDJService implements IIdjService {
             httpClient.close();
         }
     }
+
     private String buildJson(String username,String password,String viewState,String viewStateGenerator,String eventValidation){
         StringBuilder sb = new StringBuilder();
         sb.append("sm");
@@ -161,11 +171,11 @@ public class IDJService implements IIdjService {
     }
 
     private String getLoginInputs()
-            throws Exception {
-        String message = null;
+            throws HttpRequestException,IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(IDJ_BASE_URL);
         CloseableHttpResponse httpResponse = null;
+        String message = null;
         try {
             httpResponse = httpClient.execute(httpGet);
             int httpStatusCode = httpResponse.getStatusLine().getStatusCode();
@@ -173,7 +183,7 @@ public class IDJService implements IIdjService {
                 String strResult = EntityUtils.toString(httpResponse.getEntity());
                 message = strResult;
             } else {
-                throw new HttpException(httpStatusCode);
+                throw new HttpRequestException(httpStatusCode);
             }
 
         } finally {
@@ -187,16 +197,15 @@ public class IDJService implements IIdjService {
 
 
     @Override
-    public HttpMessage login(String username, String password) {
-        HttpMessage httpMessage = null;
+    public String login(String username, String password)
+            throws HttpRequestException,IOException{
         try {
             String result =  loginInternal(username, password);
-            httpMessage = new HttpMessage(0,result);
             logger.info(result);
+            return result;
         } catch (Exception ex) {
-            httpMessage = new HttpMessage(-2, ex);
+            throw ex;
         }
-        return httpMessage;
     }
 
     private static Logger logger = LoggerFactory.getLogger(IDJService.class);

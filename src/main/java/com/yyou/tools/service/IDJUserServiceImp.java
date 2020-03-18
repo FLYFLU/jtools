@@ -32,23 +32,17 @@ public class IDJUserServiceImp implements IDjUserService {
     }
 
     @Override
-    public HttpMessage addIdjUser(AddIdjUserDto addIdjUserDto) {
+    public void addIdjUser(AddIdjUserDto addIdjUserDto) {
         IDJUser idjUser = idjUserMapper.addDto2Entity(addIdjUserDto);
         idjUser.setId(idGenerator.getId());
-        int effectCount = idjUserDao.addIdjUser(idjUser);
-        return effectCount>0?
-                HttpMessage.OK:
-                new HttpMessage(-1,"新增失败");
+        idjUserDao.addIdjUser(idjUser);
     }
 
     @Override
-    public HttpMessage updateIdjUser(long id, UpdateIdjUserDto idjUserDto) {
+    public void updateIdjUser(long id, UpdateIdjUserDto idjUserDto) {
         IDJUser idjUser = idjUserMapper.updateDto2Entity(idjUserDto);
         idjUser.setId(id);
-        int effectCount = updateIdjUserInternal(idjUser);
-        return effectCount>0?
-                HttpMessage.OK:
-                new HttpMessage(-1,"更新失败");
+        updateIdjUserInternal(idjUser);
     }
 
     @Transactional

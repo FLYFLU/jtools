@@ -1,7 +1,10 @@
 package com.yyou.tools.service;
 
-import com.yyou.data.HttpMessage;
+import com.yyou.tools.exception.HttpRequestException;
+
+import java.io.IOException;
 
 public interface IIdjService {
-    HttpMessage login(String username,String password);
+    String login(String username,String password)
+            throws HttpRequestException,IOException;
 }

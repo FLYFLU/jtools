@@ -1,6 +1,7 @@
 package com.yyou.tools.controller;
 
 import com.yyou.data.HttpMessage;
+import com.yyou.data.CustomResponse;
 import com.yyou.tools.dto.user.UpdateUserDto;
 import com.yyou.tools.dto.user.UserDto;
 import com.yyou.tools.entity.User;
@@ -23,12 +24,14 @@ public class UserController {
     }
 
     @PostMapping
-    public HttpMessage addUser(@RequestBody UserDto user){
-        return userService.addUser(user);
+    public CustomResponse addUser(@RequestBody UserDto user){
+        userService.addUser(user);
+        return CustomResponse.http200("新增成功");
     }
 
     @PostMapping("{id}")
-    public HttpMessage updateUser(@PathVariable("id") long id, @RequestBody UpdateUserDto user){
-        return userService.updateUser(id,user);
+    public CustomResponse updateUser(@PathVariable("id") long id, @RequestBody UpdateUserDto user){
+        userService.updateUser(id,user);
+        return CustomResponse.http200("更新成功");
     }
 }

@@ -17,7 +17,8 @@ public class IDJServiceTest {
     private IIdjService iIdjService;
 
     @Test
-    public void testLogin(){
+    public void testLogin()
+        throws Exception{
         iIdjService.login("340221199308051253","22884628");
     }
 

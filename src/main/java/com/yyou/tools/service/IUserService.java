@@ -7,6 +7,6 @@ import com.yyou.tools.entity.User;
 
 public interface IUserService {
     User getUserById(long uuid);
-    HttpMessage addUser(UserDto user);
-    HttpMessage updateUser(long id,UpdateUserDto user);
+    void addUser(UserDto user);
+    void updateUser(long id,UpdateUserDto user);
 }

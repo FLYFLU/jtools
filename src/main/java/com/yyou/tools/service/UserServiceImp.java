@@ -1,6 +1,5 @@
 package com.yyou.tools.service;
 
-import com.yyou.data.HttpMessage;
 import com.yyou.tools.dto.user.UpdateUserDto;
 import com.yyou.tools.dto.user.UserDto;
 import com.yyou.tools.entity.User;
@@ -24,22 +23,20 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public HttpMessage addUser(UserDto userDto) {
+    public void addUser(UserDto userDto) {
         long id = idGenerator.getId();
         User user = new User();
         user.setId(id);
         user.setDesc(userDto.getDescription());
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
-        int count = userDao.addUser(user);
-        return count == 1 ? HttpMessage.OK : new HttpMessage(-1, "新建失败");
+        userDao.addUser(user);
     }
 
     @Override
 
-    public HttpMessage updateUser(long id,UpdateUserDto userDto) {
-        int count = updateUserInteranl(id,userDto);
-        return count == 1 ? HttpMessage.OK : new HttpMessage(-1, "更新失败");
+    public void updateUser(long id,UpdateUserDto userDto) {
+        updateUserInteranl(id,userDto);
     }
 
     @Transactional
