@@ -30,9 +30,9 @@ public interface UserDao {
     @Select({"<script>",
             "select id,name,password,description from user",
             "<where>",
-                "<if test=\"name=null\"> name = #{name},</if>",
-                "<if test=\"description=null\"> and description = #{description},</if>",
+                "<if test=\"name!=null\"> name = #{name}</if>",
+                "<if test=\"description!=null\"> and  description like CONCAT(#{description},'%')</if>",
             "</where>",
             "</script>"})
-    List<User> getUserByPage(@Param("user")QueryUserDto userDto);
+    List<User> getUserByPage(QueryUserDto userDto);
 }
