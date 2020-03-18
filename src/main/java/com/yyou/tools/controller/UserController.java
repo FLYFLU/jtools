@@ -1,7 +1,10 @@
 package com.yyou.tools.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.yyou.data.HttpMessage;
 import com.yyou.data.CustomResponse;
+import com.yyou.data.PagedQuery;
+import com.yyou.tools.dto.user.QueryUserDto;
 import com.yyou.tools.dto.user.UpdateUserDto;
 import com.yyou.tools.dto.user.UserDto;
 import com.yyou.tools.entity.User;
@@ -33,5 +36,11 @@ public class UserController {
     public CustomResponse updateUser(@PathVariable("id") long id, @RequestBody UpdateUserDto user){
         userService.updateUser(id,user);
         return CustomResponse.http200("更新成功");
+    }
+
+    @GetMapping()
+    public PageInfo<User> getUserByPage(PagedQuery pagedQuery,
+                                        QueryUserDto queryUserDto){
+        return userService.getUserByPage(queryUserDto,pagedQuery);
     }
 }

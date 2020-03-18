@@ -1,8 +1,12 @@
 package com.yyou.tools.dao;
 
+import com.yyou.data.PagedQuery;
+import com.yyou.tools.dto.user.QueryUserDto;
 import com.yyou.tools.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface UserDao {
@@ -22,4 +26,13 @@ public interface UserDao {
             "</script>"
     })
     int updateUser(User user);
+
+    @Select({"<script>",
+            "select id,name,password,description from user",
+            "<where>",
+                "<if test=\"name=null\"> name = #{name},</if>",
+                "<if test=\"description=null\"> and description = #{description},</if>",
+            "</where>",
+            "</script>"})
+    List<User> getUserByPage(@Param("user")QueryUserDto userDto);
 }
