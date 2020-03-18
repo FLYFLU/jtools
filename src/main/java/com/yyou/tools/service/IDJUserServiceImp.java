@@ -39,13 +39,13 @@ public class IDJUserServiceImp implements IDjUserService {
     }
 
     @Override
+    @Transactional
     public void updateIdjUser(long id, UpdateIdjUserDto idjUserDto) {
         IDJUser idjUser = idjUserMapper.updateDto2Entity(idjUserDto);
         idjUser.setId(id);
         updateIdjUserInternal(idjUser);
     }
 
-    @Transactional
     int updateIdjUserInternal(IDJUser idjUser){
         IDJUser dbIdjUser =  idjUserDao.getById(idjUser.getId());
         if(dbIdjUser == null){

@@ -40,12 +40,12 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-
+    @Transactional
     public void updateUser(long id,UpdateUserDto userDto) {
         updateUserInteranl(id,userDto);
     }
 
-    @Transactional
+
     int updateUserInteranl(long id,UpdateUserDto userDto){
         User user = getUserById(id);
         if(user==null){
