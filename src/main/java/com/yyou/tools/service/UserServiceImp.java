@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @Service
@@ -60,7 +61,7 @@ public class UserServiceImp implements IUserService {
     public PageInfo<User> getUserByPage(QueryUserDto userDto, PagedQuery pagedQuery) {
         PageHelper.startPage(pagedQuery.getPageNo(),pagedQuery.getPageSize());
         List<User> userList = userDao.getUserByPage(userDto);
-        PageInfo<User> pageInfo=new PageInfo(userList,pagedQuery.getPageNo());
+        PageInfo<User> pageInfo=new PageInfo<>(userList,pagedQuery.getPageNo());
         return pageInfo;
     }
 }

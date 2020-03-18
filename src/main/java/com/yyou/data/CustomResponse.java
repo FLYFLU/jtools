@@ -36,7 +36,9 @@ public class CustomResponse<T extends Object> {
     public static <T extends Object> CustomResponse<T> http200(T message) {
         return new CustomResponse<>(HttpMessage.OK, message);
     }
-
+    public static CustomResponse<String> http401(String message) {
+        return new CustomResponse<>(HttpMessage.NOT_Authentication, message);
+    }
     public static CustomResponse<String> http404(String message) {
         return new CustomResponse<>(HttpMessage.NOT_FOUND, message);
     }

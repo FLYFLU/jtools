@@ -1,6 +1,6 @@
 package com.yyou.tools.exception;
 
-public class CustomerException extends Exception {
+public class CustomerException extends RuntimeException {
 
 
     private int code;

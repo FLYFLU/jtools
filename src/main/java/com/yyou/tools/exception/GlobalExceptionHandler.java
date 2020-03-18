@@ -49,4 +49,13 @@ public class GlobalExceptionHandler {
         logger.error(message);
         return CustomResponse.http404(message);
     }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public CustomResponse handleAuthenticationExceptionException(AuthenticationException ex){
+        String message = ex.getMessage();
+        logger.error(message);
+        return CustomResponse.http401(message);
+    }
 }
