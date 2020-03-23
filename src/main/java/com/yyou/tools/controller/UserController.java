@@ -1,5 +1,6 @@
 package com.yyou.tools.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pagehelper.PageInfo;
 import com.yyou.data.HttpMessage;
 import com.yyou.data.CustomResponse;
@@ -12,6 +13,7 @@ import com.yyou.tools.service.IUserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @Api(description = "用户")
@@ -27,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public CustomResponse addUser(@RequestBody UserDto user){
+    public CustomResponse addUser(@RequestBody UserDto user,@ApiIgnore User currentUser){
         userService.addUser(user);
         return CustomResponse.http200("新增成功");
     }

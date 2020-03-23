@@ -1,6 +1,7 @@
 package com.yyou.tools.interceptor;
 
 import com.yyou.tools.annotations.AllowToken;
+import com.yyou.tools.context.UserContext;
 import com.yyou.tools.entity.User;
 import com.yyou.tools.exception.AuthenticationException;
 import com.yyou.tools.service.IUserService;
@@ -43,6 +44,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if( user ==null){
             throw new AuthenticationException();
         }
+        UserContext.setLoginUser(user);
         return true;
     }
 }
