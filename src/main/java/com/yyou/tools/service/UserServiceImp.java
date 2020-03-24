@@ -3,23 +3,29 @@ package com.yyou.tools.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yyou.data.PagedQuery;
+import com.yyou.tools.dao.RoleDao;
 import com.yyou.tools.dto.user.QueryUserDto;
 import com.yyou.tools.dto.user.UpdateUserDto;
 import com.yyou.tools.dto.user.UserDto;
+import com.yyou.tools.entity.Role;
 import com.yyou.tools.entity.User;
 import com.yyou.tools.dao.UserDao;
 import com.yyou.tools.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @Service
-public class UserServiceImp implements IUserService {
+public class UserServiceImp implements IUserService, UserDetailsService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
 
     @Autowired
     private IdGenerator idGenerator;
@@ -34,7 +40,7 @@ public class UserServiceImp implements IUserService {
         long id = idGenerator.getId();
         User user = new User();
         user.setId(id);
-        user.setDesc(userDto.getDescription());
+        user.setDescription(userDto.getDescription());
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
         userDao.addUser(user);
@@ -63,5 +69,15 @@ public class UserServiceImp implements IUserService {
         List<User> userList = userDao.getUserByPage(userDto);
         PageInfo<User> pageInfo=new PageInfo<>(userList,pagedQuery.getPageNo());
         return pageInfo;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        User user = userDao.getUserByName(name);
+        if(null!=user){
+            List<Role> roleList = roleDao.getRoleByUserId(user.getId());
+            user.setRoleList(roleList);
+        }
+        return user;
     }
 }

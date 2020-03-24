@@ -35,4 +35,8 @@ public interface UserDao {
             "</where>",
             "</script>"})
     List<User> getUserByPage(QueryUserDto userDto);
+
+    @Select({"select id,name,password,description from user",
+            "where name = #{username}"})
+    User getUserByName(@Param("username") String username);
 }
