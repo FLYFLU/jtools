@@ -24,7 +24,8 @@ public class DefaultAccessValidator implements IAccessValidator {
     }
 
     private boolean isTokenAccess(String token){
-        JWT.require(Algorithm)
+        return false;
+//        JWT.require(Algorithm)
     }
 
     @Override
