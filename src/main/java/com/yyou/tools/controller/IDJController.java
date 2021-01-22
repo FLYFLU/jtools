@@ -24,7 +24,7 @@ public class IDJController {
     private IDjUserService iDjUserService;
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
-    public CustomResponse login(@RequestParam("name") String name, @RequestParam("password") String password)
+    public CustomResponse<String> login(@RequestParam("name") String name, @RequestParam("password") String password)
         throws HttpRequestException,IOException {
         String messeage = iIdjService.login(name,password);
         return CustomResponse.http200(messeage);
@@ -32,19 +32,17 @@ public class IDJController {
 
     @RequestMapping(value = "users/{id}",method = RequestMethod.GET)
     public IDJUser getUser(@PathVariable("id") long id){
-        IDJUser user = iDjUserService.getUser(id);
-//        IDjRelation sysUser = user.getUser();
-        return user;
+        return iDjUserService.getUser(id);
     }
 
     @PostMapping(value = "users")
-    public CustomResponse addIdjUser(@RequestBody AddIdjUserDto dto){
+    public CustomResponse<String> addIdjUser(@RequestBody AddIdjUserDto dto){
         iDjUserService.addIdjUser(dto);
         return CustomResponse.http200("新增成功");
     }
 
     @PostMapping(value = "users/{id}")
-    public CustomResponse updateIdjUser(@PathVariable("id") long id,
+    public CustomResponse<String> updateIdjUser(@PathVariable("id") long id,
                                         @RequestBody UpdateIdjUserDto dto){
         iDjUserService.updateIdjUser(id,dto);
         return CustomResponse.http200("修改成功");

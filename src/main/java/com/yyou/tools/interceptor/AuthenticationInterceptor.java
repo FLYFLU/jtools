@@ -23,6 +23,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     private final static String AUTHOR_HEAER__KEY = "Authorization";
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        方法
         if(!(handler instanceof HandlerMethod)){
