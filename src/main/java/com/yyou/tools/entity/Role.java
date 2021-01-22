@@ -1,8 +1,6 @@
 package com.yyou.tools.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-
-public class Role implements GrantedAuthority {
+public class Role {
 
     private Long id;
     private String name;
@@ -23,8 +21,8 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    @Override
-    public String getAuthority() {
-        return name;
-    }
+//    @Override
+//    public String getAuthority() {
+//        return name;
+//    }
 }

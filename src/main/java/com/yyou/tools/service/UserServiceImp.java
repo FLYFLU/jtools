@@ -12,16 +12,13 @@ import com.yyou.tools.entity.User;
 import com.yyou.tools.dao.UserDao;
 import com.yyou.tools.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class UserServiceImp implements IUserService, UserDetailsService {
+public class UserServiceImp implements IUserService {
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -71,13 +68,13 @@ public class UserServiceImp implements IUserService, UserDetailsService {
         return pageInfo;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userDao.getUserByName(name);
-        if(null!=user){
-            List<Role> roleList = roleDao.getRoleByUserId(user.getId());
-            user.setRoleList(roleList);
-        }
-        return user;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+//        User user = userDao.getUserByName(name);
+//        if(null!=user){
+//            List<Role> roleList = roleDao.getRoleByUserId(user.getId());
+//            user.setRoleList(roleList);
+//        }
+//        return user;
+//    }
 }

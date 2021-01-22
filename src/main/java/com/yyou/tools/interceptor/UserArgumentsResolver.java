@@ -13,7 +13,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class UserArgumentsResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        Class clazz = methodParameter.getParameterType();
+        Class<?> clazz = methodParameter.getParameterType();
         return clazz == User.class;
     }
 

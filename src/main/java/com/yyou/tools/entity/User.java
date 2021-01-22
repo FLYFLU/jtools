@@ -1,13 +1,9 @@
 package com.yyou.tools.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
-public class User implements Serializable , UserDetails {
+public class User implements Serializable {
     private long id;
     private String name;
     private String password;
@@ -64,34 +60,39 @@ public class User implements Serializable , UserDetails {
     }
 
     //region UserDetails Ctrl+Alt+T
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roleList;
-    }
-    @Override
-    public String getUsername() {
-        return name;
-    }
-//账号过期标志
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-//锁定标志
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-//密码过期标志
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-//可用标志
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return roleList;
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return name;
+//    }
+
+    //账号过期标志
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return false;
+//    }
+
+    //锁定标志
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return false;
+//    }
+
+    //密码过期标志
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return false;
+//    }
+
+    //可用标志
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
     //endregion
 
 }
