@@ -1,6 +1,6 @@
 package com.yyou.data;
 
-public class CustomResponse<T extends Object> {
+public class CustomResponse<T> {
     private int code;
     private T payload;
 
@@ -33,7 +33,7 @@ public class CustomResponse<T extends Object> {
                 '}';
     }
 
-    public static <T extends Object> CustomResponse<T> http200(T message) {
+    public static <T> CustomResponse<T> http200(T message) {
         return new CustomResponse<>(HttpMessage.OK, message);
     }
     public static CustomResponse<String> http401(String message) {
